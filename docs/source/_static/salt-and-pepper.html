@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: 'Mean Squred distance (MSE) of best AE. Normalized with 1/-ln(MSE)',
+    },
+    tooltip: {
+		show: true
+    },
+    itemStyle:{
+        normal:{
+        color:'#2D8ED3'
+        }
+    },
+    xAxis: {
+        type: 'value',
+    },
+    grid: {
+        x: 120,
+    },
+    yAxis: {
+        type: 'category',
+        data: [
+            'Densenet-201',
+            'ResNet-50',
+            'MobileNetV2',
+            'SqueezeNet 1.1',
+            'NASNetMobile',
+            'Google-SafeSearch',
+            'ResNet-152',
+            'VGG-16',
+            'Baidu-AntiPorn',
+            'ResNet-18',
+            'Inception V3',
+            'AlexNet',
+            'Densenet-121',
+            'Xception',
+            'NASNetLarge',
+            'YOLOv3',
+            'Google-ObjDetection'
+            ]
+    },
+    series: [{
+        data: [
+            0.06629729499,
+            0.07589164486,
+            0.07884171395,
+            0.08059312274,
+            0.08243568654,
+            0.08252331625,
+            0.08336855217,
+            0.08643322646,
+            0.08747587986,
+            0.08810287042,
+            0.08944524219,
+            0.09315886153,
+            0.1057094369,
+            0.1631896116,
+            0.1741912065,
+            0.2013780589,
+            0.2150568829,
+            ],
+        type: 'bar',
+        barWidth: 30
+    }]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
