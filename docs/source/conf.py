@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Perceptron Benchmark'
+project = 'Perceptron Robustness Benchmark'
 copyright = '2019, Baidu X-Lab'
 author = 'Yunhan Jia'
 
@@ -46,7 +46,6 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'numpydoc',
 ]
 
 numpydoc_show_class_members = False
