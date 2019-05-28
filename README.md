@@ -97,7 +97,7 @@ You are welcome to send pull requests and report issues on GitHub or iCode. Note
 
 ## Steering Committee
 
-  - Tao Wei
+  - Tao Wei <lenx@baidu.com>
 
 ## License
 Perceptron Robustness Benchmark is provided under Apache-2.0 license. For a copy, see LICENSE file. 
