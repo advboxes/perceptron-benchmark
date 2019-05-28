@@ -3,23 +3,13 @@ Perceptron is a robustness benchmark for computer vision DNN models. It
 supports both image classification and object detection models on PyTorch,
 Tensorflow, Keras, PaddlePaddle (in progress), as well as cloud APIs. Perceptron inherits the
 design from [`foolbox`](https://github.com/bethgelab/foolbox), and is designed to be agnostic to
-the deep learning frameworks the model is built on.
+the deep learning frameworks the models are built on.
 
-Documentation is available on `readthedoc`
+Documentation is available on [`readthedoc`](https://github.com/baidu-advbox/perceptron-benchmark)
 
 Currently, you can use Perceptron either through its python API or its command line tool.
 
 ## Getting Started
-### Environment Configuration
-Build the docker image and all dependencies will be installed automatically.
-```
-nvidia-docker build -t perceptron:env .
-```
-
-Start the docker container and open a shell
-```
-nvidia-docker run --name perceptron -it perceptron:env bash
-```
 
 ### Running Examples via Command Lines
 In the docker shell, run the test through Perceptron command line interface
@@ -51,6 +41,12 @@ You can try different combinations of frameworks, models, criteria, and
 metrics. To see more options using `-h` for help message.
 ```
 python perceptron/launcher.py -h
+```
+
+### Docker Quick Start
+Build the docker image and all dependencies will be installed automatically.
+```
+nvidia-docker build -t perceptron:env .
 ```
 
 ### Keras: ResNet50 - C&W2 Benchmarking
