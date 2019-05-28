@@ -94,3 +94,10 @@ You are welcome to send pull requests and report issues on GitHub or iCode. Note
 * Yunhan Jia <jiayunhan@baidu.com>
 * Yantao Lu <yantaolu@baidu.com>
 * Xiaowei Chen <xiaoweichen01@baidu.com>
+
+## Steering Committee
+
+  - Tao Wei
+
+## License
+Perceptron Robustness Benchmark is provided under Apache-2.0 license. For a copy, see LICENSE file. 
