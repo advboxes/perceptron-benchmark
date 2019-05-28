@@ -5,7 +5,7 @@ Tensorflow, Keras, PaddlePaddle (in progress), as well as cloud APIs. Perceptron
 design from [`foolbox`](https://github.com/bethgelab/foolbox), and is designed to be agnostic to
 the deep learning frameworks the models are built on.
 
-Documentation is available on [`readthedoc`](https://github.com/baidu-advbox/perceptron-benchmark)
+Documentation is available on [`readthedoc`](https://perceptron-robustness-benchmark.readthedocs.io/)
 
 Currently, you can use Perceptron either through its python API or its command line tool.
 
