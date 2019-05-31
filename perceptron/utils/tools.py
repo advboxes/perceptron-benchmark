@@ -16,6 +16,12 @@
 
 from perceptron.utils.image import load_image
 import matplotlib.pyplot as plt
+import numpy as np
+import pdb
+from scipy.stats import norm
+from rpy2.robjects.packages import importr
+from rpy2.robjects import FloatVector
+multici = importr("MultinomialCI")
 
 class bcolors:
     RED = "\033[1;31m"
@@ -34,6 +40,16 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def bound(image, model, sd, num_class, num_iter=10):
+    one_hot = np.zeros(num_class)
+    for i in range(num_iter):
+        logits = model.predictions(image+np.random.normal(scale=sd, size=image.shape))
+        one_hot[logits.argmax()] += 1
+    prob =FloatVector(sorted(one_hot)[::-1])
+    ci = np.array(multici.multinomialCI(prob, 0.95))
+    qi = ci[0,0]-1e-9
+    qj = ci[1,1]+1e-9
+    return sd/2.*(norm.ppf(qi)-norm.ppf(qj))
 
 def get_image_format(framework_name, model_name):
     """Return the correct input range and shape for target framework and model"""
