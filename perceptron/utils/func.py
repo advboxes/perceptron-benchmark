@@ -203,7 +203,7 @@ def maybe_download_model_data(file_name, url_string):
         url = urljoin(
             url_string,
             file_name)
-        print('Downloading %s', file_name)
+        print('Downloading %s' % file_name)
         def dlProgress(count, block_size, total_size):
             percent = int(count * block_size * 100 / total_size)
             sys.stdout.write("\r" + url + "...%d%%" % percent)

@@ -43,6 +43,9 @@ param = {
   "parallel" : True,
   # size of the model
   "model_size" : "small",
+  # training method for the model including 
+  # ["clean", "madry", "mixtrain"]
+  "model_method" : "clean",
   # dataset for testing
   "dataset" : "mnist",
   # number of classes of testing dataset
@@ -68,7 +71,8 @@ epsilon = param["epsilon"]
 if param["dataset"] == "mnist":
 
   net = mnist_model(model_size=param["model_size"],\
-        train_epsilon=param["train_epsilon"]).eval()
+            method=param["model_method"],\
+            train_epsilon=param["train_epsilon"]).eval()
 
   param["num_classes"] = 10
 
