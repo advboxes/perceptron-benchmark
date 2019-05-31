@@ -17,22 +17,17 @@ In the docker shell, run the test through Perceptron command line interface
 python perceptron/launcher.py \
     --framework keras \
     --model resnet50 \
-    --criteria misclassification\
     --metric carlini_wagner_l2 \
     --image example.png
 ```
 
-In above command line, the user lets the framework as ``keras``, the model as
-``resnet50``, the criterion as ``misclassification`` (i.e., we want to generate
-an adversary which is similar to the original image but has different predicted
-label), the metric as ``carlini_wagner_l2``, the input image as
-``example.png``.
-
-The output of above command line is as follows.
+In the example, user specifies framework as ``keras``, the model as
+``resnet50``, the metric as ``carlini_wagner_l2``, the input image as
+``example.png``. The output would be as follows. 
 
 ![](./images/keras_reset50_screenshot.png)
 
-To has a better visualization of the adversary, we also provide the plot of the
+To visualize the adversary, we also provide the plot of the
 original image, adversary image, and their difference as follows.
 
 ![](images/Keras_ResNet50_Misclassification_CarliniWagnerL2.png)

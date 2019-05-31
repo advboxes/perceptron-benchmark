@@ -66,6 +66,23 @@ def save_image(image, bounds=(0, 1), data_format='channels_last'):
     print('Result image saved in current directory.')
 
 
+def load_mnist_image(shape=(28, 28), dtype=np.float32,
+            bounds=(0, 1), data_format='channels_last', fname='mnist0.png'):
+    from PIL import Image
+
+    path = os.path.join(os.path.dirname(__file__), 'images/%s' % fname)
+    image = Image.open(path)
+    image = np.asarray(image, dtype=dtype)
+    if(data_format == 'channels_first'):
+        image = image.reshape([1]+list(shape))
+    else:
+        image = image.reshape(list(shape)+[1])
+
+    if bounds != (0, 255):
+        image /= 255.
+
+    return image
+
 
 def load_image(
         shape=(224, 224), bounds=(0, 1), dtype=np.float32,

@@ -2,35 +2,15 @@
 from __future__ import absolute_import
 
 import torch
-import torchvision.models as models
 import numpy as np
 from perceptron.models.classification.pytorch import PyTorchModel
-from perceptron.utils.image import imagenet_example
-from perceptron.benchmarks.interval_analysis import SymbolicIntervalMetric, NaiveIntervalMetric
+from perceptron.benchmarks.interval_analysis import NaiveIntervalMetric
+from perceptron.benchmarks.interval_analysis import SymbolicIntervalMetric
 from perceptron.utils.criteria.classification import Misclassification
-from perceptron.utils.tools import plot_image
+from perceptron.utils.image import load_mnist_image
 from perceptron.utils.tools import bcolors
 
 from perceptron.zoo.mnist.model import mnist_model
-
-
-def load_mnist_image(fname, shape=(28, 28), dtype=np.float32,
-            bounds=(0,1), data_format="channels_first"):
-    from PIL import Image
-
-    path = './perceptron/utils/images/' + fname
-    #image = load_image(dtype=np.uint8, fname="mnist0.")
-    image = Image.open(path)
-    image = np.asarray(image, dtype=dtype)
-    if(data_format=='channels_first'):
-        image = image.reshape([1]+list(shape))
-    else:
-        image = image.reshape(list(shape)+[1])
-
-    if bounds != (0, 255):
-        image /= 255.
-
-    return image
 
 param = {
   # epsilon for testing
@@ -42,7 +22,7 @@ param = {
   # whether to parallelize on multiple gpus for testing
   "parallel" : True,
   # size of the model
-  "model_size" : "small",
+  "model_size" : "large",
   # dataset for testing
   "dataset" : "mnist",
   # number of classes of testing dataset
@@ -57,18 +37,14 @@ param = {
   "shape" : (28,28)
 }
 
-
-image = load_mnist_image(param["fname"],\
-              shape=param["shape"],\
-              bounds=param["bounds"],\
-              data_format=param["data_format"])
+image = load_mnist_image(shape=(28, 28), data_format='channels_first', fname='mnist0.png')
 
 epsilon = param["epsilon"]
 
 if param["dataset"] == "mnist":
 
-  net = mnist_model(model_size=param["model_size"],\
-        train_epsilon=param["train_epsilon"]).eval()
+  net = mnist_model(model_size=param["model_size"],
+                    train_epsilon=param["train_epsilon"]).eval()
 
   param["num_classes"] = 10
 
@@ -81,7 +57,6 @@ fmodel = PyTorchModel(
           )
 
 label = np.argmax(fmodel.predictions(image))
-
 metric1 = NaiveIntervalMetric(fmodel,\
           criterion=Misclassification(), threshold=epsilon)
 metric2 = SymbolicIntervalMetric(fmodel,\
