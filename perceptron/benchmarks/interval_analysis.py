@@ -50,7 +50,8 @@ class IntervalMetric(Metric, ABC):
 
     @call_decorator
     def __call__(self, adv, optimal_bound=False, epsilon=None,
-                 parallel=False, unpack=False, annotation=None):
+                 parallel=False, unpack=False, annotation=None,
+                 normalize=False, threshold=0.001):
         """ The Linf version of interval analysis. It will add two
         parameters into adversarial: (1) is_verified: whether the
         sample is verified to be safe under given epsilon;
@@ -75,6 +76,11 @@ class IntervalMetric(Metric, ABC):
             the Adversarial object.
         annotation : int
             The reference label of the original input.
+        normalize : Bool
+            Whether the input is normalized. Usually, MNIST will not be 
+            normalized while cifar10 will be normalized with 0.225.
+        threshold : float
+            The minimal threshold for the binary search
         """
 
         assert epsilon is not None, "Provide an epsilon for verification!"
@@ -94,9 +100,12 @@ class IntervalMetric(Metric, ABC):
                         "epsilon {0:.3f}".format(epsilon))
 
         if optimal_bound:
-
-            opt = self.analyze_bound(a, epsilon, parallel=parallel)
-            print("optimal bound found to be {0:.3f} out of 0 to 1".format(opt))
+            opt = self.analyze_bound(a, epsilon, threshold=0.001, parallel=parallel)
+            if normalize:
+                opt = opt * 0.225 * 255
+            else:
+                opt = opt * 255
+            print("optimal bound found to be {0:.3f} out of 0 to 255".format(opt))
 
         # Avoid warning for not finding the adversarial examples
         a._best_adversarial = a._original_image
@@ -122,7 +131,8 @@ class IntervalMetric(Metric, ABC):
         epsilon : float
             The Linf epsilon range. Serves as the starting epsilon
             for searching the optimal one.
-        threshold : The minimal threshold for the binary search
+        threshold : float
+            The minimal threshold for the binary search
         parallel : Bool
             whether to parallelize the testing
         """

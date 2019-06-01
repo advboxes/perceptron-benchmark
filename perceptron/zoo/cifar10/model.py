@@ -13,8 +13,9 @@ class Flatten(nn.Module):
         return x.view(x.size(0), -1)
 
 
-def mnist_model(model_size="small", method="mixtrain", pretrained=True, train_epsilon=0.1):
-    """Returns a mnist model.
+def cifar_model(model_size="small", method="mixtrain",
+                pretrained=True, train_epsilon=0.1):
+    """Returns a cifar model.
 
     Parameters
     ----------
@@ -29,19 +30,14 @@ def mnist_model(model_size="small", method="mixtrain", pretrained=True, train_ep
     
     A list of trained models
     ---------
-    mixtrain:
-    mnist_small_mixtrain_0.1 : acc 99, vra 96
-    mnist_large_mixtrain_0.3 : acc 94, vra 60
-    mnist_small_mixtrain_0.1 : acc 99, vra 95
-    mnist_large_mixtrain_0.1 : acc 97, vra 59
-    clean:
-    mnist_small_clean : acc 99, vra 0
-    mnist_large_clean : acc 99, vra 0
-    madry:
-    mnist_small_madry_0.1 : acc 99, vra 0
-    mnist_small_madry_0.3 : acc 99, vra 0
-    mnist_large_madry_0.1 : acc 99, vra 0
+    small:
+    cifar_small_clean_2 : acc 78, vra 0
+    cifar_small_madry_2 : acc 71, vra 60
+    cifar_small_mixtrain_2 : acc 70, vra 48
 
+    large:
+    cifar_large_clean : acc 87, vra 0
+    cifar_large_mixtrain : acc 74, vra 51
 
     Returns
     -------
@@ -51,15 +47,15 @@ def mnist_model(model_size="small", method="mixtrain", pretrained=True, train_ep
     """
 
     if model_size == "small":
-        net = mnist_small()
+        net = cifar_small()
     if model_size == "large":
-        net = mnist_large()
+        net = cifar_large()
 
     if method != "clean":
-        MODEL_NAME = "mnist_" +\
+        MODEL_NAME = "cifar_" +\
                     model_size + "_" + method + "_" + str(train_epsilon)
     else:
-        MODEL_NAME = "mnist_" +\
+        MODEL_NAME = "cifar_" +\
                     model_size + "_" + method
 
     if pretrained:
@@ -67,30 +63,31 @@ def mnist_model(model_size="small", method="mixtrain", pretrained=True, train_ep
         weight_file = MODEL_NAME+".pth"
         weight_fpath = maybe_download_model_data(
                     weight_file,
-                    "https://perceptron-benchmark.s3-us-west-1.amazonaws.com/models/mnist/" + MODEL_NAME+".pth")
+                    "https://perceptron-benchmark.s3-us-west-1.amazonaws.com/models/cifar/" + MODEL_NAME+".pth")
         # print("====",weight_fpath)
         net.load_state_dict(torch.load(weight_fpath))
         print("Load model from", MODEL_NAME + ".pth")
         return net
 
 
-def mnist_small(): 
+def cifar_small(): 
     model = nn.Sequential(
-        nn.Conv2d(1, 16, 4, stride=2, padding=1),
+        nn.Conv2d(3, 16, 4, stride=2, padding=1),
         nn.ReLU(),
         nn.Conv2d(16, 32, 4, stride=2, padding=1),
         nn.ReLU(),
         Flatten(),
-        nn.Linear(32*7*7,100),
+        nn.Linear(32*8*8,100),
         nn.ReLU(),
         nn.Linear(100, 10)
     )
     return model
 
 
-def mnist_large(): 
+
+def cifar_large(): 
     model = nn.Sequential(
-        nn.Conv2d(1, 32, 3, stride=1, padding=1),
+        nn.Conv2d(3, 32, 3, stride=1, padding=1),
         nn.ReLU(),
         nn.Conv2d(32, 32, 4, stride=2, padding=1),
         nn.ReLU(),
@@ -99,7 +96,7 @@ def mnist_large():
         nn.Conv2d(64, 64, 4, stride=2, padding=1),
         nn.ReLU(),
         Flatten(),
-        nn.Linear(64*7*7,512),
+        nn.Linear(64*8*8,512),
         nn.ReLU(),
         nn.Linear(512,512),
         nn.ReLU(),
