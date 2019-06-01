@@ -67,7 +67,25 @@ def save_image(image, bounds=(0, 1), data_format='channels_last'):
 
 
 def load_mnist_image(shape=(28, 28), dtype=np.float32,
-            bounds=(0, 1), data_format='channels_last', fname='mnist0.png'):
+            bounds=(0, 1), data_format='channels_last',
+            fname='mnist0.png', normalize=False):
+    """Return the sample mnist image for testing
+
+    Parameters
+    ----------
+    shape : list of integers
+        The shape of the returned image.
+    dype : np.type
+        The type for loading the image
+    bounds : float tuple
+        the range of loaded image before normalization
+    data_format : str
+        "channels_first" or "channels_last"
+    fname : str
+        The name of sample image
+    normalize : Bool
+        Whether the image is needed to be normalized.
+    """
     from PIL import Image
 
     path = os.path.join(os.path.dirname(__file__), 'images/%s' % fname)
@@ -80,6 +98,49 @@ def load_mnist_image(shape=(28, 28), dtype=np.float32,
 
     if bounds != (0, 255):
         image /= 255.
+
+    return image
+
+def load_cifar_image(shape=(32, 32), dtype=np.float32,
+            bounds=(0, 1), data_format='channels_last',
+            fname='cifar0.png', normalize=True):
+    """Return the sample mnist image for testing
+
+    Parameters
+    ----------
+    shape : list of integers
+        The shape of the returned image.
+    dype : np.type
+        The type for loading the image
+    bounds : float tuple
+        the range of loaded image before normalization
+    data_format : str
+        "channels_first" or "channels_last"
+    fname : str
+        The name of sample image
+    normalize : Bool
+        Whether the image is needed to be normalized.
+    """
+    from PIL import Image
+
+    path = os.path.join(os.path.dirname(__file__), 'images/%s' % fname)
+    image = Image.open(path)
+    image = np.asarray(image, dtype=dtype)
+    if(data_format == 'channels_first'):
+        image = image.reshape([3]+list(shape))
+    else:
+        image = image.reshape(list(shape)+[3])
+
+    if bounds != (0, 255):
+        image /= 255.
+
+    if(normalize):
+        mean = np.array([0.485, 0.456, 0.406]).reshape(3,1,1)
+        std = np.array([0.225, 0.225, 0.225]).reshape(3,1,1)
+        image = image - mean
+        image = image / std
+
+    image = np.asarray(image, dtype=dtype)
 
     return image
 
