@@ -21,7 +21,7 @@ from perceptron.models.base import DifferentiableModel
 
 
 class KerasModel(DifferentiableModel):
-    """Create a :class: `Model` instance from a `Keras` model.
+    """Create a :class:`Model` instance from a `Keras` model.
 
     Parameters
     ----------

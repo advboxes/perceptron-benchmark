@@ -53,7 +53,7 @@ class AipModel(Model):
 
 
 class AipAntiPornModel(AipModel):
-    """Create a :class: `Model` instance from an `AipAntiPorn` model.
+    """Create a :class:`Model` instance from an `AipAntiPorn` model.
 
     Parameters
     ----------

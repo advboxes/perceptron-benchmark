@@ -33,7 +33,7 @@ from collections import defaultdict
 
 
 class KerasSSD300Model(DifferentiableModel):
-    """Create a :class: `Model` instance from a `DifferentiableModel` model.
+    """Create a :class:`Model` instance from a `DifferentiableModel` model.
 
     Parameters
     ----------

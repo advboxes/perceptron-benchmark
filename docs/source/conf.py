@@ -14,9 +14,20 @@
 #
 import os
 import sys
-# sys.path.insert(0, os.path.abspath('/workspace/projects/baidu/aisec/perceptron/'))
+from unittest.mock import Mock
 sys.path.insert(0, os.path.abspath('../../'))
 
+sys.modules['numpy.linalg'] = Mock()
+sys.modules['scipy'] = Mock()
+sys.modules['scipy.optimize'] = Mock()
+sys.modules['scipy.interpolate'] = Mock()
+sys.modules['scipy.ndimage'] = Mock()
+sys.modules['scipy.ndimage.filters'] = Mock()
+sys.modules['tensorflow'] = Mock()
+sys.modules['theano'] = Mock()
+sys.modules['theano.tensor'] = Mock()
+sys.modules['torch'] = Mock()
+sys.modules['randomstate'] = Mock()
 
 # -- Project information -----------------------------------------------------
 
@@ -40,7 +51,9 @@ release = ''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
+    'numpydoc',
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',

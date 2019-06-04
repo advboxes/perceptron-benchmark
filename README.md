@@ -11,6 +11,12 @@ Currently, you can use Perceptron either through its python API or its command l
 
 ## Getting Started
 
+### Installation 
+The `PyTorch` and `Tensorflow` packages are required if you want to test their models, we requir user to manually install them on demand. Otherwise, run the following command to install Perceptron Benchmark
+```
+pip install -e .
+```
+
 ### Running Examples via Command Lines
 In the docker shell, run the test through Perceptron command line interface
 ```bash
