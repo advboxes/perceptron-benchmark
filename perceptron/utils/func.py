@@ -216,7 +216,6 @@ def maybe_download_model_data(file_name, url_string):
 
 def maybe_download_image(file_name, url_string):
     import sys
-    import tempfile
     try:
         from urllib.parse import urljoin
         from urllib.request import urlretrieve
@@ -250,3 +249,16 @@ def clear_keras_session():
     K.clear_session()
     tf.reset_default_graph()
     del sess
+
+
+def bound(image, model, sd, num_class, num_iter=10):
+    from scipy.stats import norm
+    one_hot = np.zeros(num_class)
+    for i in range(num_iter):
+        noise = np.random.normal(scale=sd, size=image.shape).astype(np.float32)
+        logits = model.predictions(image+noise)
+        one_hot[logits.argmax()] += 1
+    ret = sorted(one_hot/np.sum(one_hot))[::-1]
+    qi = ret[0]-1e-9
+    qj = ret[1]+1e-9
+    return sd/2.*(norm.ppf(qi)-norm.ppf(qj))
