@@ -9,6 +9,7 @@ requirements = [
     'pillow',
     'scipy',
     'sphinx',
+    'numpydoc',
     'sphinx_rtd_theme'
 ]
 
