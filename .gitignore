@@ -9,6 +9,7 @@ __pycache__/
 
 # test code
 perceptron/tmp/
+perceptron/utils/images/porn.jpeg
 
 # vscode stuff
 .vscode/

@@ -4,15 +4,23 @@ from perceptron.utils.image import imagenet_example, load_image
 from perceptron.models.classification.cloud import AipAntiPornModel
 from perceptron.benchmarks.rotation import RotationMetric
 from perceptron.utils.criteria.classification import MisclassificationAntiPorn
+from perceptron.utils.func import maybe_download_image
 import numpy as np
 from perceptron.utils.tools import plot_image
 from perceptron.utils.tools import bcolors
 
+porn_image = maybe_download_image(
+                    'porn.jpeg',
+                    'https://perceptron-benchmark.s3-us-west-1.amazonaws.com/images/porn.jpeg')
 
-# fill in your baidu AIP credentials
+# fill in your Baidu AIP credentials
 appId = '#'
 apiKey = '#'
 secretKey = "#"
+
+if appId is '#':
+    print(bcolors.RED + 'Please fill in your Baidu AIP credential.')
+    exit(0)
 
 credential = (appId, apiKey, secretKey)
 model = AipAntiPornModel(credential)

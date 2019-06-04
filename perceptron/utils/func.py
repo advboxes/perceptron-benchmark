@@ -187,6 +187,7 @@ class AdamOptimizer:
 
         return -learning_rate * m_hat / (np.sqrt(v_hat) + epsilon)
 
+
 def maybe_download_model_data(file_name, url_string):
     import sys
     import tempfile
@@ -204,12 +205,39 @@ def maybe_download_model_data(file_name, url_string):
             url_string,
             file_name)
         print('Downloading %s' % file_name)
+
         def dlProgress(count, block_size, total_size):
             percent = int(count * block_size * 100 / total_size)
             sys.stdout.write("\r" + url + "...%d%%" % percent)
             sys.stdout.flush()
         urlretrieve(url, dest_file, reporthook=dlProgress)
     return dest_file
+
+
+def maybe_download_image(file_name, url_string):
+    import sys
+    import tempfile
+    try:
+        from urllib.parse import urljoin
+        from urllib.request import urlretrieve
+    except ImportError:
+        from urlparse import urljoin
+        from urllib import urlretrieve
+    dest_file = path = os.path.join(os.path.dirname(__file__), 'images/%s' % file_name)
+    isfile = os.path.isfile(dest_file)
+    if not isfile:
+        url = urljoin(
+            url_string,
+            file_name)
+        print('Downloading %s' % file_name)
+
+        def dlProgress(count, block_size, total_size):
+            percent = int(count * block_size * 100 / total_size)
+            sys.stdout.write("\r" + url + "...%d%%" % percent)
+            sys.stdout.flush()
+        urlretrieve(url, dest_file, reporthook=dlProgress)
+    return dest_file
+
 
 def clear_keras_session():
     "Magic code."
