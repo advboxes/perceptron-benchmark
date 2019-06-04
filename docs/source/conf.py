@@ -51,13 +51,14 @@ release = ''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.doctest',
-    'sphinx.ext.coverage',
+    'sphinx.ext.autodoc',
+    'numpydoc',
+    'sphinx.ext.todo',
     'sphinx.ext.mathjax',
-    'sphinx.ext.linkcode',
-    'numpydoc'
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
 ]
 
 numpydoc_show_class_members = False
