@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to Perceptron Robustness Benchmark's page!
-=======================================
+==================================================
 
 Perceptron is a benchmark to test safety and security properties of neural
 networks for perceptual tasks.
@@ -15,7 +15,7 @@ It comes with support for many frameworks to build models including
 * PyTorch
 * Keras
 * Cloud API
-* PaddlePaddle (In progress)
+* PaddlePaddle
 
 See currently supported evaluation metrics, models, adversarial criteria,
 and verification methods in :doc:`user/summary`.
@@ -48,78 +48,6 @@ toolbox such as :code:`cleverhans`, :code:`foolbox`, :code:`IBM ART`,
       properties.
     - Gives :red:`verifiable` robustness bounds for security and safety
       properties.
-
-More specifically, we compare :code:`perceptron` with existing DNN benchmarks
-in the following table:
-
-.. list-table:: :shade:`DNN Benchmarks Comparison`
-   :widths: 50 24 24 24 24
-   :header-rows: 1
-
-   * - Properties
-     - Perceptron
-     - Cleverhans
-     - Foolbox
-     - IBM ART
-   * - Multi-platform support
-     - :math:`\checkmark`
-     - :math:`\checkmark`
-     - :math:`\checkmark`
-     - :math:`\checkmark`
-   * - Consistent API design
-     - :math:`\checkmark`
-     - :math:`\cdot`
-     - :math:`\checkmark`
-     - :math:`\cdot`
-   * - Custom adversarial criteria
-     - :math:`\checkmark`
-     - :math:`\cdot`
-     - :math:`\checkmark`
-     - :math:`\cdot`
-   * - Multiple perceptual tasks
-     - :math:`\checkmark`
-     - :math:`\cdot`
-     - :math:`\cdot`
-     - :math:`\cdot`
-   * - Standardized metrics
-     - :math:`\checkmark`
-     - :math:`\cdot`
-     - :math:`\checkmark`
-     - :math:`\cdot`
-   * - Verifiable robustness bounds
-     - :math:`\checkmark`
-     - :math:`\cdot`
-     - :math:`\cdot`
-     - :math:`\cdot`
-
-Explanation of compared properties:
-
-    - :blue:`Multi-platform support`: supports at least the
-      three deep learning frameworks, :code:`Tensoflow`,
-      :code:`PyTorch`, and :code:`Keras`.
-
-    - :blue:`Consistent API design`: implementations of evaluation methods
-      are platform-agnostic. More specifically, the same piece of code for
-      an evaluation method (e.g., a :code:`C&W` attack) can run against
-      models across all platforms (e.g., :code:`Tensorflow`,
-      :code:`PyTorch`, and :code:`cloud API`).
-
-    - :blue:`Custom adversarial criterion`: a criterion defines under what
-      circumstances an :code:`(input, label)` pair is considered an adversary.
-      Customized adversarial criteria other than :code:`misclassification`
-      should be supported.
-
-    - :blue:`Multiple perceptual tasks`: supports computer vision tasks other
-      than :code:`classification`, e.g., :code:`object detection` and
-      :code:`face recognition`.
-
-    - :blue:`Standardized metrics`: enables DNN models' robustness to be
-      comparable on all **security** and **safety** properties.
-
-    - :blue:`Verifiable robustness bounds`: supports verification of certain
-      safety properties. Returns either a verifiable bound, indicating that the
-      model is robust against perturbations within that bound, or return
-      counter-examples.
 
 Running benchmarks
 ==================

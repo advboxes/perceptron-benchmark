@@ -25,7 +25,7 @@ import keras
 
 
 class KerasYOLOv3Model(DifferentiableModel):
-    """Create a :class: `Model` instance from a `Keras` model.
+    """Create a :class:`Model` instance from a `Keras` model.
 
     Parameters
     ----------

@@ -8,6 +8,7 @@ __pycache__/
 *.h5
 
 # test code
+notebook.ipynb
 perceptron/tmp/
 perceptron/utils/images/porn.jpeg
 

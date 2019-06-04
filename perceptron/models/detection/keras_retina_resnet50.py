@@ -23,7 +23,7 @@ import tensorflow as tf
 
 
 class KerasResNet50RetinaNetModel(DifferentiableModel):
-    """Create a :class: `Model` instance from a `DifferentiableModel` model.
+    """Create a :class:`Model` instance from a `DifferentiableModel` model.
 
     Parameters
     ----------
