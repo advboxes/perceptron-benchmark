@@ -172,9 +172,9 @@ def _load_keras_model(model_name, summary):
         'vgg19': lambda: models.vgg19.VGG19(weights='imagenet'),
         "resnet50": lambda: models.resnet50.ResNet50(weights='imagenet'),
         "inception_v3": lambda: models.inception_v3.InceptionV3(weights='imagenet'),
-        "yolo_v3": lambda: _load_yolo_model(),
+        "yolo_v3": lambda: _load_yolov3_model(),
         "ssd300": lambda: _load_ssd300_model(),
-        #"retina_resnet_50"???
+        "retina_resnet_50": lambda: _load_retinanet_resnet50_model()
     }
 
     _load_model = switcher.get(model_name, None)
@@ -256,7 +256,7 @@ def _load_pytorch_model(model_name, summary):
     return pmodel
 
 
-def _load_yolo_model():
+def _load_yolov3_model():
     from perceptron.zoo.yolov3.model import YOLOv3
     model = YOLOv3()
     return model
@@ -268,6 +268,12 @@ def _load_ssd300_model():
     model.load_weights(
         'perceptron/zoo/ssd_300/model_data/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.h5',
         by_name=True)
+    return model
+
+
+def _load_retinanet_resnet50_model():
+    from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import retina_resnet50
+    model = retina_resnet50()
     return model
 
 

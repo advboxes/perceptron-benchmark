@@ -957,7 +957,7 @@ def SSD300(image_size=(300, 300, 3),
     from perceptron.utils.func import maybe_download_model_data
     weight_fpath = maybe_download_model_data(
                     weight_file,
-                    'https://github.com/BaiduXLab/libprotobuf-mutator/releases/download/0.2.0/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.h5')
+                    'https://perceptron-benchmark.s3-us-west-1.amazonaws.com/models/coco/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.h5')
     model.load_weights(weight_fpath)
 
     if return_predictor_sizes:

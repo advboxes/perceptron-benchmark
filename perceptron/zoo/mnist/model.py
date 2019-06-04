@@ -68,7 +68,6 @@ def mnist_model(model_size="small", method="mixtrain", pretrained=True, train_ep
         weight_fpath = maybe_download_model_data(
                     weight_file,
                     "https://perceptron-benchmark.s3-us-west-1.amazonaws.com/models/mnist/" + MODEL_NAME+".pth")
-        # print("====",weight_fpath)
         net.load_state_dict(torch.load(weight_fpath))
         print("Load model from", MODEL_NAME + ".pth")
         return net

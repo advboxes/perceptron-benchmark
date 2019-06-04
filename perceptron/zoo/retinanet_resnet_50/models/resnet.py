@@ -1,8 +1,8 @@
 """resnet"""
 import keras
 from keras.utils import get_file
-import keras_resnet
-import keras_resnet.models
+import perceptron.zoo.retinanet_resnet_50 as keras_resnet
+import perceptron.zoo.retinanet_resnet_50.models as models
 
 from . import retinanet
 from . import Backbone
@@ -94,13 +94,13 @@ def resnet_retinanet(num_classes, backbone='resnet50',
 
     # create the resnet backbone
     if backbone == 'resnet50':
-        resnet = keras_resnet.models.ResNet50(
+        resnet = models.ResNet50(
             inputs, include_top=False, freeze_bn=True)
     elif backbone == 'resnet101':
-        resnet = keras_resnet.models.ResNet101(
+        resnet = models.ResNet101(
             inputs, include_top=False, freeze_bn=True)
     elif backbone == 'resnet152':
-        resnet = keras_resnet.models.ResNet152(
+        resnet = models.ResNet152(
             inputs, include_top=False, freeze_bn=True)
     else:
         raise ValueError('Backbone (\'{}\') is invalid.'.format(backbone))

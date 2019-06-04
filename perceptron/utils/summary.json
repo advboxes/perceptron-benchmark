@@ -43,7 +43,7 @@
     ],
     "detection_models": [
         "yolo_v3",
-        "keras_ssd300",
+        "ssd300",
         "retina_resnet_50"
     ],
     "metrics": [
