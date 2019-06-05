@@ -92,9 +92,11 @@ Perceptron Robustness Benchmark would not have been possible without the `foolbo
 You are welcome to send pull requests and report issues on GitHub or iCode. Note that the Perceptron Benchmark project follows the Git flow development model.
 
 ## Authors
-* Yunhan Jia (<jiayunhan@baidu.com>)
+* Yunhan Jia [@yunhan](https://github.com/jiayunhan)(<jiayunhan@baidu.com>)
 * Yantao Lu (<yantaolu@baidu.com>)
 * Xiaowei Chen (<xiaoweichen01@baidu.com>)
+* Shiqi Wang [@shiqi](https://github.com/tcwangshiqi-columbia)(<tcwangshiqi@cs.columbia.edu>)
+* Bai Li [@bai](https://github.com/Bai-Li)(<bai.li@duke.edu>)
 
 ## Steering Committee
 
