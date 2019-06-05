@@ -10,7 +10,8 @@ requirements = [
     'scipy',
     'sphinx',
     'numpydoc',
-    'sphinx_rtd_theme'
+    'sphinx_rtd_theme',
+    'keras_resnet',
 ]
 
 setup(
