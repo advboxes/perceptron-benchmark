@@ -4,7 +4,7 @@ from perceptron.zoo.retinanet_resnet_50 import models
 import tensorflow as tf
 
 
-def retina_resnet50(weights_file="resnet50_coco_best_v2.1.0.h5"):
+def Retina_Resnet50(weights_file="resnet50_coco_best_v2.1.0.h5"):
     from perceptron.utils.func import maybe_download_model_data
     keras.backend.tensorflow_backend.set_session(get_session())
     weight_fpath = maybe_download_model_data(weights_file,

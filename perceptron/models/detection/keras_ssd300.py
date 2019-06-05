@@ -99,6 +99,9 @@ class KerasSSD300Model(DifferentiableModel):
         """Return the class names as list."""
         return self._class_names
 
+    def get_class(self):
+        return self.class_names()
+
     def model_task(self):
         """Return the task of the model: classification of detection."""
         return self._task

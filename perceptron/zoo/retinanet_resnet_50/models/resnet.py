@@ -1,9 +1,8 @@
 """resnet"""
 import keras
 from keras.utils import get_file
-import perceptron.zoo.retinanet_resnet_50 as keras_resnet
 import perceptron.zoo.retinanet_resnet_50.models as models
-
+import keras_resnet
 from . import retinanet
 from . import Backbone
 from ..utils.image import preprocess_image

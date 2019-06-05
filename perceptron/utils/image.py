@@ -167,7 +167,7 @@ def load_image(
     assert len(shape) == 2
     assert data_format in ['channels_first', 'channels_last']
     path = os.path.join(os.path.dirname(__file__), 'images/%s' % fname)
-    image = Image.open(path)
+    image = Image.open(path).convert('RGB')
     image = image.resize(shape)
     image = np.asarray(image, dtype=dtype)
     image = image[:, :, :3]
@@ -251,10 +251,12 @@ def letterbox_image(
     return image, (h, w)
 
 
-def draw_letterbox(image, prediction, original_shape=(416, 416), class_names=[]):
+def draw_letterbox(image, prediction, original_shape=(416, 416), class_names=[], bounds=(0, 1)):
     """Draw on letterboxes on image."""
     assert len(image.shape) == 3, 'Input is a 3-dimenson numpy.ndarray'
-
+    if bounds != (0, 1):
+        import copy
+        image = copy.deepcopy(image).astype(np.float32) / bounds[-1]
     if image.shape[0] == 3:
         image = np.transpose(image, [1, 2, 0])
     ih, iw = original_shape
@@ -268,9 +270,8 @@ def draw_letterbox(image, prediction, original_shape=(416, 416), class_names=[])
                   (w - nw) // 2: (w - nw) // 2 + nw, :]
     image = (image * 255).astype('uint8')
 
-    image_pil = Image.fromarray(image)
+    image_pil = Image.fromarray(image.astype('uint8'))
     image_pil = image_pil.resize((iw, ih), Image.BICUBIC)
-
     new_image = np.asarray(image_pil, dtype=np.float32)
     new_image /= 255.
 

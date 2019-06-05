@@ -163,6 +163,7 @@ def _load_keras_model(model_name, summary):
     from perceptron.models.classification.keras import KerasModel as ClsKerasModel
     from perceptron.models.detection.keras_ssd300 import KerasSSD300Model
     from perceptron.models.detection.keras_yolov3 import KerasYOLOv3Model
+    from perceptron.models.detection.keras_retina_resnet50 import KerasResNet50RetinaNetModel
     import numpy as np
     format = get_image_format('keras', model_name)
     if format['bounds'][1] == 1:
@@ -174,6 +175,7 @@ def _load_keras_model(model_name, summary):
     switcher = {
         'yolo_v3': lambda x: KerasYOLOv3Model(x, bounds=(0, 1)),
         'ssd300': lambda x: KerasSSD300Model(x, bounds=(0, 255)),
+        'retina_resnet_50': lambda x: KerasResNet50RetinaNetModel(None, bounds=(0, 255)),
     }
     _wrap_model = switcher.get(
         model_name,
@@ -252,8 +254,8 @@ def _load_ssd300_model():
 
 
 def _load_retinanet_resnet50_model():
-    from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import retina_resnet50
-    model = retina_resnet50()
+    from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import Retina_Resnet50
+    model = Retina_Resnet50()
     return model
 
 
@@ -312,16 +314,15 @@ def plot_image(adversary, title=None, figname='compare.png') :
     plt.show()
 
 
-def plot_image_objectdetection(adversary, kmodel, title=None, figname='compare.png') :
+def plot_image_objectdetection(adversary, kmodel, bounds=(0, 1), title=None, figname='compare.png') :
     from perceptron.utils.image import draw_letterbox
     pred_ori = kmodel.predictions(adversary.original_image)
     pred_adv = kmodel.predictions(adversary.image)
-
     class_names = kmodel.get_class()
 
-    ori_image = draw_letterbox(adversary.original_image, pred_ori, class_names=class_names)
+    ori_image = draw_letterbox(adversary.original_image, pred_ori, class_names=class_names, bounds=bounds)
 
-    adv_image = draw_letterbox(adversary.image, pred_adv, class_names=class_names)
+    adv_image = draw_letterbox(adversary.image, pred_adv, class_names=class_names, bounds=bounds)
 
     import matplotlib.pyplot as plt
     fig, (ax1, ax2) = plt.subplots(1, 2)

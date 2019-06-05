@@ -958,7 +958,7 @@ def SSD300(image_size=(300, 300, 3),
     weight_fpath = maybe_download_model_data(
                     weight_file,
                     'https://perceptron-benchmark.s3-us-west-1.amazonaws.com/models/coco/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.h5')
-    model.load_weights(weight_fpath)
+    model.load_weights(weight_fpath, by_name=True)
 
     if return_predictor_sizes:
         predictor_sizes = np.array([conv4_3_norm_mbox_conf._keras_shape[1:3],
