@@ -247,13 +247,15 @@ def _load_yolov3_model():
 def _load_ssd300_model():
     from perceptron.zoo.ssd_300.keras_ssd300 import SSD300
     model = SSD300()
-    model.load_weights(
-        'perceptron/zoo/ssd_300/model_data/VGG_VOC0712Plus_SSD_300x300_ft_iter_160000.h5',
-        by_name=True)
     return model
 
 
 def _load_retinanet_resnet50_model():
+    try:
+        import keras_resnet
+    except ImportError:
+        print("You need to run: pip install keras_resnet, to use RetinaNet")
+
     from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import Retina_Resnet50
     model = Retina_Resnet50()
     return model
