@@ -4,3 +4,4 @@ so that they provide a unified API to the attacks.
 
 from .base import Model
 from .base import DifferentiableModel
+from .gaussian import GaussianModel

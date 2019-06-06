@@ -8,10 +8,6 @@ requirements = [
     'tqdm',
     'pillow',
     'scipy',
-    'sphinx',
-    'numpydoc',
-    'sphinx_rtd_theme',
-    'keras_resnet',
 ]
 
 setup(

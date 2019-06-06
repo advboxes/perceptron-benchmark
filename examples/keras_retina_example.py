@@ -1,6 +1,5 @@
 """ Test case for Keras """
 
-from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import Retina_Resnet50
 from perceptron.models.detection.keras_retina_resnet50 import KerasResNet50RetinaNetModel
 from perceptron.utils.image import load_image
 from perceptron.benchmarks.brightness import BrightnessMetric
@@ -9,10 +8,8 @@ from perceptron.utils.tools import bcolors
 from perceptron.utils.tools import plot_image_objectdetection
 
 
-# instantiate the model from keras applications
-# retina_resnet50 = Retina_Resnet50()
 # initialize the KerasResNet50RetinaNetModel
-kmodel = KerasResNet50RetinaNetModel(None, bounds=(0, 255))
+kmodel = KerasResNet50RetinaNetModel(bounds=(0, 255))
 
 # get source image and label
 # the model expects values in [0, 1], and channles_last

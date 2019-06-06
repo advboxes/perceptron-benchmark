@@ -251,13 +251,8 @@ def _load_ssd300_model():
 
 
 def _load_retinanet_resnet50_model():
-    try:
-        import keras_resnet
-    except ImportError:
-        print("You need to run: pip install keras_resnet, to use RetinaNet")
-
-    from perceptron.zoo.retinanet_resnet_50.retina_resnet50 import Retina_Resnet50
-    model = Retina_Resnet50()
+    from perceptron.models.detection.keras_retina_resnet50 import KerasResNet50RetinaNetModel
+    model = KerasResNet50RetinaNetModel()
     return model
 
 

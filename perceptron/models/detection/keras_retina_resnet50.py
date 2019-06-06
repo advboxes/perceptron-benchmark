@@ -15,7 +15,6 @@
 """Keras model wrapper for RetinaResnet50 object detection."""
 
 import keras
-from perceptron.zoo.retinanet_resnet_50.utils.image import preprocess_image, resize_image
 from perceptron.zoo.retinanet_resnet_50 import models
 import numpy as np
 from perceptron.models.base import DifferentiableModel
@@ -54,8 +53,8 @@ class KerasResNet50RetinaNetModel(DifferentiableModel):
     """
 
     def __init__(self,
-                 model,
-                 bounds,
+                 model=None,
+                 bounds=(0, 255),
                  weight_file='resnet50_coco_best_v2.1.0.h5',
                  num_classes=80,
                  channel_axis=3,
@@ -94,12 +93,17 @@ class KerasResNet50RetinaNetModel(DifferentiableModel):
         self._labels_to_names = labels_to_names
         self._min_overlap = iou
         keras.backend.tensorflow_backend.set_session(self._get_session())
-        warnings.warn('Preset model is reloaded in KerasResNet50RetinaNetModel init function.')
+        try:
+            import keras_resnet
+        except ImportError:
+            from perceptron.utils.tools import bcolors
+            print(bcolors.RED + "You need to run: `pip install keras_resnet`, to use RetinaNet")
+            exit(0)
         from perceptron.utils.func import maybe_download_model_data
         weight_fpath = maybe_download_model_data(
                         weight_file,
                         'https://github.com/BaiduXLab/libprotobuf-mutator/releases/download/0.2.0/resnet50_coco_best_v2.1.0.h5')
-        self._model = model = models.load_model(
+        self._model = models.load_model(
             filepath=weight_fpath,
             backbone_name='resnet50')
         self._th_conf = score
