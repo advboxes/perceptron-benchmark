@@ -110,7 +110,9 @@ class AipAntiPornModel(AipModel):
 
         image_bytes = ndarray_to_bytes(image)
         predictions = self.model.antiPorn(image_bytes)
-        return predictions['result']
+        if 'result' in predictions:
+            return predictions['result']
+        return None
 
     def model_task(self):
         """Get the task that the model is used for."""
