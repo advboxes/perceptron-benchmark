@@ -31,7 +31,7 @@ image = load_image(dtype=np.uint8, fname='porn.jpeg')
 metric = RotationMetric(model, criterion=MisclassificationAntiPorn())
 
 print(bcolors.BOLD + 'Process start' + bcolors.ENDC)
-adversary = metric(image, ang_range=(-180., 180.), epsilons=1000, unpack=False)
+adversary = metric(image, ang_range=(-90., 90.), epsilons=50, unpack=False)
 print(bcolors.BOLD + 'Process finished' + bcolors.ENDC)
 
 if adversary.image is None:

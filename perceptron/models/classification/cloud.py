@@ -112,7 +112,7 @@ class AipAntiPornModel(AipModel):
         predictions = self.model.antiPorn(image_bytes)
         if 'result' in predictions:
             return predictions['result']
-        return None
+        return predictions
 
     def model_task(self):
         """Get the task that the model is used for."""

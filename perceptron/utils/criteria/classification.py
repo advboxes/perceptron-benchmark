@@ -202,7 +202,11 @@ class MisclassificationAntiPorn(Criterion):
         _porn_prob = 0
         _normal_prob = 0 
         """Decides if predictions for an image are adversarial."""
+        from perceptron.utils.tools import bcolors
         
+        if 'error_code' in predictions:
+            raise ValueError(bcolors.RED + 'API Error:' + str(predictions) + bcolors.ENDC)
+
         for cls in predictions:
             if cls['class_name'] == '色情':
                 _porn_prob = cls['probability']
