@@ -215,6 +215,30 @@ class MisclassificationAntiPorn(Criterion):
         return _porn_prob < _normal_prob
 
 
+class MisclassificationOfflineAntiPorn(Criterion):
+    """Defines adversarials as image for which the probability of being
+    `normal` is larger than the probability of being `porn`.
+    """
+
+    def name(self):
+        """Return criterion name."""
+        return 'AntiPornMisclassification'
+
+    def is_adversarial(self, predictions, label):
+        _porn_prob = 0
+        _normal_prob = 0 
+        """Decides if predictions for an image are adversarial."""
+        from perceptron.utils.tools import bcolors
+        
+        if predictions['err_no'] != 0:
+            raise ValueError(bcolors.RED + 'API Error:' + predictions['err_msg'] + bcolors.ENDC)
+
+        probabilities = predictions['result']['result'][0]['probability']
+        _porn_prob = probabilities[0]
+        _normal_prob = probabilities[2]
+        return _porn_prob < _normal_prob
+
+
 class MisclassificationSafeSearch(Criterion):
     """Defines adversarials as image for which the probability of being
     `unsafe` is lower than a threshold.
