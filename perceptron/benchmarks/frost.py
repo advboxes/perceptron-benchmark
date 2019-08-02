@@ -27,7 +27,7 @@ class FrostMetric(Metric):
     """Metric that tests models against frost variations."""
 
     @call_decorator
-    def __call__(self, adv, scenario=1, annotation=None, unpack=True,
+    def __call__(self, adv, scenario=5, annotation=None, unpack=True,
                  abort_early=True, verify=False, epsilons=1000):
         """Change the frost of the image until it is misclassified.
 
