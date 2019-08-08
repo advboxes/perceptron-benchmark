@@ -7,7 +7,7 @@ import torchvision.models as models
 import numpy as np
 from perceptron.models.classification.pytorch import PyTorchModel
 from perceptron.utils.image import imagenet_example
-from perceptron.benchmarks.frost import FrostMetric
+from perceptron.benchmarks.snow import SnowMetric
 from perceptron.utils.criteria.classification import Misclassification
 from perceptron.utils.tools import plot_image
 from perceptron.utils.tools import bcolors
@@ -28,7 +28,7 @@ image, _ = imagenet_example(data_format='channels_first')
 image = image / 255.  # because our model expects values in [0, 1]
 
 # set the type of noise which will used to generate the adversarial examples
-metric = FrostMetric(fmodel, criterion=Misclassification())
+metric = SnowMetric(fmodel, criterion=Misclassification())
 
 # set the label as the predicted one
 label = np.argmax(fmodel.predictions(image))
@@ -47,7 +47,7 @@ if adversary.image is None:
 
 ###################  print summary info  #####################################
 
-keywords = ['PyTorch', 'ResNet18', 'Misclassification', 'Frost']
+keywords = ['PyTorch', 'ResNet18', 'Misclassification', 'Snow']
 
 true_label = np.argmax(fmodel.predictions(image))
 fake_label = np.argmax(fmodel.predictions(adversary.image))
