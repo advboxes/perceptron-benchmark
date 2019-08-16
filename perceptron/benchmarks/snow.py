@@ -21,13 +21,15 @@ from .base import Metric
 from .base import call_decorator
 from PIL import Image
 import warnings
+from perceptron.benchmarks.motion_blur import MotionBlurMetric
+import pdb
 
 
 class SnowMetric(Metric):
     """Metric that tests models against snow variations."""
 
     @call_decorator
-    def __call__(self, adv, scenario=5, annotation=None, unpack=True,
+    def __call__(self, adv, angle=45, annotation=None, unpack=True,
                  abort_early=True, verify=False, epsilons=1000):
         """Change the snow of the image until it is misclassified.
 
@@ -35,8 +37,8 @@ class SnowMetric(Metric):
         ----------
         adv : `numpy.ndarray`
             The original, unperturbed input as a `numpy.ndarray`.
-        scenario : int or PIL.Image
-            Choice of snow backgrounds.
+        angle : float
+            Angle of snowfall.
         annotation : int
             The reference label of the original input. Must be passed
             if `a` is a `numpy.ndarray`.
@@ -55,6 +57,7 @@ class SnowMetric(Metric):
             verify = True.
 
         """
+        import cv2
 
         if verify is True:
             warnings.warn('epsilon is not used in verification mode '
@@ -76,29 +79,36 @@ class SnowMetric(Metric):
         else:
             epsilons = epsilons
 
-        if isinstance(scenario, Image.Image):
-            snow_img_pil = scenario
-        elif isinstance(scenario, int):
-            snow_img_pil = Image.open(
-                'perceptron/utils/images/snow{0}.png'.format(scenario))
-        else:
-            raise ValueError(
-                'scenatiro has to be eigher int or PIL.Image.Image')
+        snow_mask_np = np.zeros((img_height // 10, img_height // 10, 3))
+        ch = snow_mask_np.shape[0] // 2
+        cw = snow_mask_np.shape[1] // 2
+        cr = min(img_height, img_width) * 0.1
+        for i in range(snow_mask_np.shape[0]):
+            for j in range(snow_mask_np.shape[1]):
+                if (i - ch) ** 2 + (j - cw) ** 2 <= cr:
+                    snow_mask_np[i, j] = np.ones(3)
+        
+        kernel = MotionBlurMetric.motion_Kernel((int(ch * 0.9), 
+                                                 int(cw * 0.9)), 
+                                                angle)
+        blured = cv2.filter2D(snow_mask_np, -1, kernel)
+        blured = np.clip(blured, min_, max_).astype(np.float32)
+        blured = blured * max_
+        blured_h, blured_w = blured.shape[:2]
+        if axis == 0:
+            blured = np.transpose(blured, (2, 0, 1))
 
-        snow_img = np.array(
-            snow_img_pil.convert('RGB').resize(
-                (img_width, img_height))).astype(
-            np.float32) / 255.
-        snow_img = snow_img * max_
-        if(axis == 0):
-            snow_img = np.transpose(snow_img, (2, 0, 1))
-
-        cc0 = [1.0, 0.5]
-        cc1 = [0.3, 0.8]
+        cc0 = [1, 100]
         for _, epsilon in enumerate(tqdm(epsilons)):
-            p0 = cc0[0] + epsilon * (cc0[1] - cc0[0])
-            p1 = cc1[0] + epsilon * (cc1[1] - cc1[0])
-            perturbed = image * p0 + snow_img * p1
+            p0 = int(cc0[0] + epsilon * (cc0[1] - cc0[0]))
+            positions_h = np.random.randint(img_height - blured_h, size=p0)
+            positions_w = np.random.randint(img_width - blured_w, size=p0)
+            perturbed = np.copy(image)
+            for temp_h, temp_w in zip(positions_h, positions_w):
+                if axis == 0:
+                    perturbed[:, temp_h : temp_h + blured_h, temp_w : temp_w + blured_w] += blured
+                else:
+                    perturbed[temp_h : temp_h + blured_h, temp_w : temp_w + blured_w, :] += blured
             perturbed = np.clip(perturbed, min_, max_)
 
             _, is_adversarial = a.predictions(perturbed)

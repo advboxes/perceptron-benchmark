@@ -76,7 +76,7 @@ class MotionBlurMetric(Metric):
         if not isinstance(epsilons, Iterable):
             epsilons = np.linspace(0, size_min, num=epsilons + 1)[1:]
         for epsilon in tqdm(epsilons):
-            kernel = self._Kernel((epsilon, epsilon), motion_angle)
+            kernel = motion_Kernel((epsilon, epsilon), motion_angle)
             blurred = cv2.filter2D(image_cv, -1, kernel)
             blurred = np.clip(blurred, min_, max_)
             if axis == 0:
@@ -84,8 +84,9 @@ class MotionBlurMetric(Metric):
             _, is_adversarial = a.predictions(blurred)
             if is_adversarial and abort_early:
                 return
-
-    def _Kernel(self, dim, angle):
+    
+    @staticmethod
+    def motion_Kernel(dim, angle):
 
         if isinstance(dim, int):
             dim = (dim, dim)

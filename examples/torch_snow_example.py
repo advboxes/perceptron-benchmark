@@ -35,7 +35,7 @@ label = np.argmax(fmodel.predictions(image))
 
 print(bcolors.BOLD + 'Process start' + bcolors.ENDC)
 # set 'unpack' as false so we can access the detailed info of adversary
-adversary = metric(image, label, scenario=5, verify=True, unpack=False)
+adversary = metric(image, label, verify=True, unpack=False)
 print(bcolors.BOLD + 'Process finished' + bcolors.ENDC)
 
 if adversary.image is None:
