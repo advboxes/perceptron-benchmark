@@ -340,3 +340,33 @@ def plot_image_objectdetection(adversary, kmodel, bounds=(0, 1), title=None, fig
     plt.savefig(figname, bbox_inches='tight', dpi=1000)
 
     plt.show()
+
+
+def load_pytorch_model(model_name):
+    import torchvision.models as models
+    switcher = {
+        'alexnet': lambda: models.alexnet(pretrained=True).eval(),
+        "vgg11": lambda: models.vgg11(pretrained=True).eval(),
+        "vgg11_bn": lambda: models.vgg11_bn(pretrained=True).eval(),
+        "vgg13": lambda: models.vgg13(pretrained=True).eval(),
+        "vgg13_bn": lambda: models.vgg13_bn(pretrained=True).eval(),
+        "vgg16": lambda: models.vgg16(pretrained=True).eval(),
+        "vgg16_bn": lambda: models.vgg16_bn(pretrained=True).eval(),
+        "vgg19": lambda: models.vgg19(pretrained=True).eval(),
+        "vgg19_bn": lambda: models.vgg19_bn(pretrained=True).eval(),
+        "resnet18": lambda: models.resnet18(pretrained=True).eval(),
+        "resnet34": lambda: models.resnet34(pretrained=True).eval(),
+        "resnet50": lambda: models.resnet50(pretrained=True).eval(),
+        "resnet101": lambda: models.resnet101(pretrained=True).eval(),
+        "resnet152": lambda: models.resnet152(pretrained=True).eval(),
+        "squeezenet1_0": lambda: models.squeezenet1_0(pretrained=True).eval(),
+        "squeezenet1_1": lambda: models.squeezenet1_1(pretrained=True).eval(),
+        "densenet121": lambda: models.densenet121(pretrained=True).eval(),
+        "densenet161": lambda: models.densenet161(pretrained=True).eval(),
+        "densenet201": lambda: models.densenet201(pretrained=True).eval(),
+        "inception_v3": lambda: models.inception_v3(pretrained=True).eval(),
+    }
+
+    _load_model = switcher.get(model_name, None)
+    _model = _load_model()
+    return _model
