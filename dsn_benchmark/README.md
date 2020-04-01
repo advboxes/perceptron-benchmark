@@ -62,4 +62,4 @@ The safety violation images obtained by running test against 3 different state-o
 
 
 # Content Moderator
-We compared model robustness among three commercial cloud-based classifiers with their name anonymized. Due to the nature of the NSFW data, we don't publish the dataset here. However, interested users can make a request to us for this dataset. 
+We compared model robustness among three commercial cloud-based classifiers with their name anonymized. Due to the nature of the NSFW data, we don't publish the dataset here. However, interested users can make a request to edwardzhong AT baidu DOT com  for this dataset. 
