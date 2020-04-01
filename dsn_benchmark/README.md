@@ -1,5 +1,5 @@
 # Benchmark Dataset
-We provide images that violate safety properties defined in ["Quantifying DNN Model Robustness to the Real-World Threats".](https://github.com/advboxes/perceptron-benchmark/blob/master/docs/AnatomyofDNNModelRobustness.pdf) These images are generated against various learning tasks including image classifiers, object detectors, and cloud-based content moderators.
+We provide images that violate safety properties defined in ["Quantifying DNN Model Robustness to the Real-World Threats".](https://github.com/advboxes/perceptron-benchmark/blob/master/dsn_benchmark/dsn_2020_per.pdf) These images are generated against various learning tasks including image classifiers, object detectors, and cloud-based content moderators.
 
 # Dataset Structure
 The safety violation images are compressed in a tarball with respect to corresponding Safety Properrty. Once extracted, you can find the following directory structure.
