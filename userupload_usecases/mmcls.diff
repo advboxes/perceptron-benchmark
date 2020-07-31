@@ -1,0 +1,66 @@
+diff --git a/configs/_base_/datasets/imagenet_bs32.py b/configs/_base_/datasets/imagenet_bs32.py
+index 45fe3d9..8fc0e12 100644
+--- a/configs/_base_/datasets/imagenet_bs32.py
++++ b/configs/_base_/datasets/imagenet_bs32.py
+@@ -30,12 +30,12 @@ data = dict(
+     val=dict(
+         type=dataset_type,
+         data_prefix='data/imagenet/val',
+-        ann_file='data/imagenet/meta/val.txt',
++        #ann_file='data/imagenet/meta/val.txt',
+         pipeline=test_pipeline),
+     test=dict(
+         # replace `data/val` with `data/test` for standard test
+         type=dataset_type,
+         data_prefix='data/imagenet/val',
+-        ann_file='data/imagenet/meta/val.txt',
++        #ann_file='data/imagenet/meta/val.txt',
+         pipeline=test_pipeline))
+ evaluation = dict(interval=1, metric='accuracy')
+diff --git a/configs/_base_/datasets/imagenet_bs64.py b/configs/_base_/datasets/imagenet_bs64.py
+index c53a7a7..b2ac349 100644
+--- a/configs/_base_/datasets/imagenet_bs64.py
++++ b/configs/_base_/datasets/imagenet_bs64.py
+@@ -30,12 +30,12 @@ data = dict(
+     val=dict(
+         type=dataset_type,
+         data_prefix='data/imagenet/val',
+-        ann_file='data/imagenet/meta/val.txt',
++        #ann_file='data/imagenet/meta/val.txt',
+         pipeline=test_pipeline),
+     test=dict(
+         # replace `data/val` with `data/test` for standard test
+         type=dataset_type,
+         data_prefix='data/imagenet/val',
+-        ann_file='data/imagenet/meta/val.txt',
++        #ann_file='data/imagenet/meta/val.txt',
+         pipeline=test_pipeline))
+ evaluation = dict(interval=1, metric='accuracy')
+diff --git a/mmcls/models/classifiers/image.py b/mmcls/models/classifiers/image.py
+index 436f2eb..279f8ce 100644
+--- a/mmcls/models/classifiers/image.py
++++ b/mmcls/models/classifiers/image.py
+@@ -39,6 +39,12 @@ class ImageClassifier(BaseClassifier):
+             x = self.neck(x)
+         return x
+ 
++    def forward(self, img):
++        x = self.extract_feat(img)
++        x = self.head.forward(x)
++        return x
++
++
+     def forward_train(self, img, gt_label, **kwargs):
+         """Forward computation during training.
+ 
+diff --git a/mmcls/models/heads/linear_head.py b/mmcls/models/heads/linear_head.py
+index 7d6c7c4..9d7571a 100644
+--- a/mmcls/models/heads/linear_head.py
++++ b/mmcls/models/heads/linear_head.py
+@@ -41,3 +41,6 @@ class LinearClsHead(ClsHead):
+         cls_score = self.fc(x)
+         losses = self.loss(cls_score, gt_label)
+         return losses
++    def forward(self, x):
++        score = self.fc(x)
++        return score
