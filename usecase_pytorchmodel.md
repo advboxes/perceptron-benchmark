@@ -67,7 +67,7 @@ wget https://openmmlab.oss-accelerate.aliyuncs.com/mmclassification/v0/imagenet/
 
 - Step 3 -- Make ResNext101_32x4d work with Perceptron Benchmark
 ```bash
-cd -
+cd /perceptron
 cd perceptron/models/classification
 ```
 
@@ -119,7 +119,7 @@ class PyModelUpload(PyTorchModel):
 
 Run test case pytorch_userupload.py
 ```bash
-cd -
+cd /perceptron
 python examples/pytorch_userupload_br.py
 ```
 

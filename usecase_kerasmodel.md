@@ -16,6 +16,7 @@ Inside the docker container
 Clone tensorflow-model repo
 ```bash
 git clone https://github.com/tensorflow/models.git
+export PYTHONPATH=/perceptron/models/research/slim
 ```
 Install tf-slim
 ```bash
@@ -25,7 +26,9 @@ pip install tf-slim
 Clone keras inception resnet v2 repo
 ```bash
 git clone https://github.com/yuyang-huang/keras-inception-resnet-v2.git
-cd keras-inception-resnet-v2
+mv keras-inception-resnet-v2 keras_inception_resnet_v2
+
+cd keras_inception_resnet_v2
 ```
 
 Extract/Load/Generate weights
@@ -48,7 +51,7 @@ Now that the model has been set up and function well, let us port it to perceptr
 
 Step 3 -- Make InceptionResnetV2 work with Perceptron Benchmark
 ```bash
-cd -
+cd /perceptron
 cd perceptron/models/classification
 ```
 Wrap your model by creating a sub-class of perceptron.models.classification.keras and name it kerasmodelupload.py
@@ -80,7 +83,7 @@ class KerasModelUpload(KerasModel):
         import keras_inception_resnet_v2.inception_resnet_v2 as keras_irv2
 
         model = keras_irv2.InceptionResNetV2(weights=None)
-        model.load_weights(os.path.join("/perceptron/keras-inception-resnet-v2/models",'inception_resnet_v2_weights_tf_dim_ordering_tf_kernels.h5'))
+        model.load_weights(os.path.join("/perceptron/keras_inception_resnet_v2/models",'inception_resnet_v2_weights_tf_dim_ordering_tf_kernels.h5'))
         return model
 ```
 
