@@ -2,7 +2,7 @@
 
 The model we try to evaluate is [InceptionResNetV2](https://github.com/yuyang-huang/keras-inception-resnet-v2) obtained from a github repo. Instead of loading the pretrained model from keras.applications.inception_resnet_v2, we load the model from scratch with a weight file containinng the latest trained parameters.
 
-Step 1 -- Clone perceptron robustness benchmark
+- Step 1 -- Clone perceptron robustness benchmark
 ```bash
 git clone https://github.com/advboxes/perceptron-benchmark.git
 cd perceptron-benchmark
@@ -11,7 +11,7 @@ nvidia-docker run -i -t --rm -d --name perceptron percetron:env bash
 nvidia-docker exec -ti perceptron bash
 ```  
 
-Step 2 -- Set up InceptrionResNetV2
+- Step 2 -- Set up InceptrionResNetV2
 Inside the docker container
 Clone tensorflow-model repo
 ```bash
@@ -49,7 +49,7 @@ elephant.jpg passed test. (tolerance=1e-05)
 
 Now that the model has been set up and function well, let us port it to perceptron-benchmark for robustness evaluation.
 
-Step 3 -- Make InceptionResnetV2 work with Perceptron Benchmark
+- Step 3 -- Make InceptionResnetV2 work with Perceptron Benchmark
 ```bash
 cd /perceptron
 cd perceptron/models/classification
@@ -90,7 +90,7 @@ class KerasModelUpload(KerasModel):
 
 Run test example keras_userupload_cw.py 
 ```bash
-cd -
+cd /perceptron
 python examples/keras_userupload_cw.py
 ```
 
@@ -107,5 +107,20 @@ This test will also produce an image in /perceptron/example/images/KerasUserUplo
 ![enter image description here](examples/images/KerasUserUpload_InceptionResnetV2_Misclassification_CarliniWagnerL2.png)
 
 
+- Step 4 -- Build a Dockerfile and pack everything into  a tarball
+Assume you have cloned perceptron-benchmark repo, and your current directory is `perceptron-benchmark`. You need to make a tarball to include the following:
+```
+/perceptron-benchmark
+|--  keras_inception_resnet_v2 #under this folder, you already have all the model class files and the model file in models subdirectory.
+|      
+|--  Dockerfile.submit # This is the dockerfile user need to create for us to build your image and run the test
+|--  perceptron/models/classification/kerasmodelupload.py
+
+```
+We also provide a sample [Dockerfile](userupload_usecases/Dockerfile.usercase_kerasmodel) for user's reference.
 
 
+Create a tarball and submit it through our web portal
+```bash
+tar cfz modelname.tar.gz ./Dockerfile.submit ./perceptron/models/classification/kerasmodelupload.py ./keras_inceptrion_resnet_v2
+```

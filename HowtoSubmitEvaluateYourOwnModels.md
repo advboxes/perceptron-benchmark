@@ -92,6 +92,6 @@ To submit your own model for robustness evaluation, you need to put all the foll
 
 - model weight file
 - model class and its dependencies
-- Dockfile that configures the image with the required libraries, and paths of model weight file and model class files etc.,
+- Dockfile that configures the image with the required libraries, and paths of model weight file and model class, config files etc.,
 
 Once we have your docker file, we will run some test cases to make sure your model can work with our perceptron benchmark tool. If you upload an imagenet classification model, you have to achieve a state-of-the-art accuracy, otherwise your model won't be forwarded for robustness evaluation.
