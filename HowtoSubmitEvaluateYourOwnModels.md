@@ -94,4 +94,12 @@ To submit your own model for robustness evaluation, you need to put all the foll
 - model class and its dependencies
 - Dockfile that configures the image with the required libraries, and paths of model weight file and model class, config files etc.,
 
-Once we have your docker file, we will run some test cases to make sure your model can work with our perceptron benchmark tool. If you upload an imagenet classification model, you have to achieve a state-of-the-art accuracy, otherwise your model won't be forwarded for robustness evaluation.
+User can find out how to create a tarball by reading through our [Use case 1](usecase_kerasmodel.md). Once we have your docker file, we will run some test cases to make sure your model can work with our perceptron benchmark tool. If you upload an imagenet classification model, you have to achieve a state-of-the-art accuracy, otherwise your model won't be forwarded for robustness evaluation.
+
+
+Note -- For imagenet classification model, we assume the output dimension is 1000 for 1000 classes for the uploaded models. If the output of user's model has less number of classes, user needs to include the class label file in the tarball, and we will not test the model with images whose class is not in the label file. The class label shall be in the format of [synset](https://github.com/tensorflow/models/blob/master/research/slim/datasets/imagenet_lsvrc_2015_synsets.tx) for example 
+```bash
+n01694178
+n01843065
+n02037110 
+```
