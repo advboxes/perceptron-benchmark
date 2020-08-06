@@ -85,7 +85,7 @@ Let us walk through 2 use cases step by step on how to prepare user customized m
 - [Use case 1:  Prepare InceptionResNetV2 model in Keras Format. ](usecase_kerasmodel.md)
 - [Use case 2: Prepare ResNext101_32x4d model in PyTorch Format.](usecase_pytorchmodel.md)
 
-
+We are still working on object detection model use cases. Please stay tuned.  
 
 ## Model Submission
 To submit your own model for robustness evaluation, you need to put all the following information into a tarball.
@@ -103,3 +103,6 @@ n01694178
 n01843065
 n02037110 
 ```
+
+For object detection models, we assume the user submitted models follow the same labels as COCO dataset. Here is the [label file](./userupload_usecases/coco.label) for your reference. If your model predicted object class is different from COCO dataset label, please include your class label for 'bus' as file `bus.label` in your tarball. 
+
