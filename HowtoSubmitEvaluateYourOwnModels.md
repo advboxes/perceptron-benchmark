@@ -104,5 +104,5 @@ n01843065
 n02037110 
 ```
 
-For object detection models, we assume the user submitted models follow the same labels as COCO dataset. Here is the [label file](./perceptron/zoo/yolov3/model_data/coco_classes.txt) for your reference. By default, the line number corresponds to the category id for each object class. For example, object 'bus' corresponds to category id 6. If your model predicted object class is different from COCO dataset label, please include your class label/category id  for 'bus' and save it to a file `bus.label` in your tarball. 
+For object detection models, we assume the user submitted models follow the same labels as COCO dataset. Here is the [label file](./perceptron/zoo/yolov3/model_data/coco_classes.txt) for your reference. By default, the line number starting from 0 corresponds to the category id for each object class. For example, object 'bus' corresponds to category id 5. If your model predicted object class is different from COCO dataset label, please include your class label/category id  for 'bus' and save it to a file `bus.label` in your tarball. 
 
