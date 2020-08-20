@@ -96,8 +96,8 @@ class RotationMetric(Metric):
                 epsilons_lb = np.linspace(
                     ang_max, ang_min, num=epsilons + 1)[1:]
             else:
-                epsilons_ub = np.linspace(0, ang_max, num=epsilons / 2 + 1)[1:]
-                epsilons_lb = np.linspace(0, ang_min, num=epsilons / 2 + 1)[1:]
+                epsilons_ub = np.linspace(0, ang_max, num=int(epsilons / 2 + 1))[1:]
+                epsilons_lb = np.linspace(0, ang_min, num=int(epsilons / 2 + 1))[1:]
         else:
             epsilons_ub = epsilons
             epsilons_lb = []

@@ -130,9 +130,9 @@ class SpatialMetric(Metric):
                     ang_max, ang_min, num=epsilons + 1)[1:]
             else:
                 epsilons_ub_ang = np.linspace(
-                    0, ang_max, num=epsilons / 2 + 1)[1:]
+                    0, ang_max, num=int(epsilons / 2 + 1))[1:]
                 epsilons_lb_ang = np.linspace(
-                    0, ang_min, num=epsilons / 2 + 1)[1:]
+                    0, ang_min, num=int(epsilons / 2 + 1))[1:]
 
             if x_shift_limits[0] >= 0:
                 epsilons_ub_x = np.linspace(
@@ -144,9 +144,9 @@ class SpatialMetric(Metric):
                     x_shift_limits[1], x_shift_limits[0], num=epsilons + 1)[1:]
             else:
                 epsilons_ub_x = np.linspace(
-                    0, x_shift_limits[1], num=epsilons / 2 + 1)[1:]
+                    0, x_shift_limits[1], num=int(epsilons / 2 + 1))[1:]
                 epsilons_lb_x = np.linspace(
-                    0, x_shift_limits[0], num=epsilons / 2 + 1)[1:]
+                    0, x_shift_limits[0], num=int(epsilons / 2 + 1))[1:]
 
             if y_shift_limits[0] >= 0:
                 epsilons_ub_y = np.linspace(
@@ -158,9 +158,9 @@ class SpatialMetric(Metric):
                     y_shift_limits[1], y_shift_limits[0], num=epsilons + 1)[1:]
             else:
                 epsilons_ub_y = np.linspace(
-                    0, y_shift_limits[1], num=epsilons / 2 + 1)[1:]
+                    0, y_shift_limits[1], num=int(epsilons / 2 + 1))[1:]
                 epsilons_lb_y = np.linspace(
-                    0, y_shift_limits[0], num=epsilons / 2 + 1)[1:]
+                    0, y_shift_limits[0], num=int(epsilons / 2 + 1))[1:]
         else:
             epsilons_ub_ang = epsilons
             epsilons_lb_ang = []

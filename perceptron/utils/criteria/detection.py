@@ -42,6 +42,8 @@ class TargetClassMiss(Criterion):
 
     def is_adversarial(self, predictions, annotation):
         """Decides if predictions for an image are adversarial."""
+        if predictions == None:
+            return True
         return self._target_class not in predictions['classes']
 
 
@@ -69,6 +71,8 @@ class RegionalTargetClassMiss(Criterion):
 
     def is_adversarial(self, predictions, annotation):
         """Decides if predictions for an image are adversarial."""
+        if predictions == None:
+            return True
         bbox_list = predictions['boxes']
         class_list = predictions['classes']
         for bbox_pred, cls_pred in zip(bbox_list, class_list):
@@ -113,6 +117,8 @@ class TargetClassMissGoogle(Criterion):
 
     def is_adversarial(self, predictions):
         """Decides if predictions for an image are adversarial."""
+        if predictions == None:
+            return True
         assert isinstance(predictions, list), 'Predictions should be list.'
         for pred in predictions:
             if pred['name'].lower() == self._target_class.lower():
@@ -173,6 +179,8 @@ class WeightedAP(Criterion):
 
     def is_adversarial(self, predictions, annotation):
         """Decides if predictions for an image are adversarial."""
+        if predictions == None:
+            return None
         return self.distance_score(annotation, predictions) > self.th_is_adv
 
     def _get_bb_area(self, bbox):

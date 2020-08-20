@@ -70,9 +70,9 @@ class BrightnessMetric(Metric):
             epsilons_ub = np.arange(1, 255, step_size)
             epsilons_lb = np.arange(1, 1 / 255., -1 * step_size)
         elif not isinstance(epsilons, Iterable):
-            epsilons_ub = np.linspace(1, 255, num=epsilons / 2 + 1)[1:]
+            epsilons_ub = np.linspace(1, 255, num=int(epsilons / 2 + 1))[1:]
             epsilons_lb = np.linspace(
-                1, 1 / 255., num=epsilons - epsilons / 2 + 1)[1:]
+                1, 1 / 255., num=int(epsilons - epsilons / 2 + 1))[1:]
         else:
             epsilons_ub = epsilons
             epsilons_lb = []

@@ -146,7 +146,10 @@ class DifferentiableModel(Model):
 
         if isinstance(predictions, list):
             # Object detection models will return a list of preds in batch
-            return predictions[0]
+            if len(predictions) > 0:
+                return predictions[0]
+            else:
+                return None
         else:
             # Classification models will return a 2-D ndarray
             return np.squeeze(predictions, axis=0)

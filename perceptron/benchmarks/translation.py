@@ -104,9 +104,9 @@ class TranslationMetric(Metric):
             else:
                 epsilons = np.minimum(2 * translate_max_bound, epsilons)
                 epsilons_ub = np.linspace(
-                    0, range_max, num=epsilons / 2 + 1)[1:]
+                    0, range_max, num=int(epsilons / 2 + 1))[1:]
                 epsilons_lb = np.linspace(
-                    0, range_min, num=epsilons / 2 + 1)[1:]
+                    0, range_min, num=int(epsilons / 2 + 1))[1:]
         else:
             epsilons_ub = epsilons
             epsilons_lb = []
