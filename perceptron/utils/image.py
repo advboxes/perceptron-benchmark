@@ -275,6 +275,9 @@ def draw_letterbox(image, prediction, original_shape=(416, 416), class_names=[],
     new_image = np.asarray(image_pil, dtype=np.float32)
     new_image /= 255.
 
+    if predictions == None:
+        return new_image
+
     for idx, temp_bbox in enumerate(prediction['boxes']):
         top, left, bottom, right = temp_bbox
         top -= pad[1]
@@ -415,6 +418,10 @@ def draw_boxes(image, out_boxes, out_classes, out_scores, class_names):
 
         label = '{} {:.2f}'.format(predicted_class, score)
         draw = ImageDraw.Draw(image)
+
+        if draw == None:
+            return image
+
         label_size = draw.textsize(label, font)
 
         top, left, bottom, right = box

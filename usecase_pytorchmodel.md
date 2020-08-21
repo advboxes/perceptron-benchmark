@@ -1,6 +1,6 @@
 # Use Case 2 Prepare ResNext101_32x4d PyTorch Model
 
-The model we try to port is [ResNext101_32x4d]([https://github.com/open-mmlab/mmclassification](https://github.com/open-mmlab/mmclassification)). This is an opensource project from 
+The model we try to port is [ResNext101_32x4d]([https://github.com/open-mmlab/mmclassification](https://github.com/open-mmlab/mmclassification)). This is an opensource project from OpenMMLab. 
 
 
 
@@ -71,7 +71,7 @@ cd /perceptron
 cd perceptron/models/classification
 ```
 
-Wrap your model by creating a sub-class of perceptron.models.classification.pytorch and name it pytorchmodelupload.py
+Wrap your model by creating a sub-class of perceptron.models.classification.pytorch.PyTorchModel and name it pytorchmodelupload.py
 ```python
 from __future__ import absolute_import
 
