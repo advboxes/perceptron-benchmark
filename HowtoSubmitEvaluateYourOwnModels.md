@@ -84,6 +84,7 @@ Let us walk through 2 use cases step by step on how to prepare user customized m
 
 - [Use case 1:  Prepare InceptionResNetV2 model in Keras Format. ](usecase_kerasmodel.md)
 - [Use case 2: Prepare ResNext101_32x4d model in PyTorch Format.](usecase_pytorchmodel.md)
+- [Use case 3: Prepare Mask R-CNN backbone X101-64x4d-FPN model in PyTorch Format.](usecase_pytorch_mask_rcnn.md)
 
 We are still working on object detection model use cases. Please stay tuned.  
 
